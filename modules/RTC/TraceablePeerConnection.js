@@ -658,8 +658,7 @@ TraceablePeerConnection.prototype._createRemoteTrack
     }
     remoteTracksMap.set(mediaType, remoteTrack);
 
-    // FIXME not cool to use RTC's eventEmitter
-    this.rtc.eventEmitter.emit(RTCEvents.REMOTE_TRACK_ADDED, remoteTrack);
+    this.eventEmitter.emit(RTCEvents.REMOTE_TRACK_ADDED, remoteTrack);
 };
 
 /* eslint-enable max-params */
@@ -819,9 +818,7 @@ TraceablePeerConnection.prototype._removeRemoteTrack
                 `Failed to remove ${toBeRemoved} - type mapping messed up ?`);
         }
 
-        // FIXME not cool to use RTC's eventEmitter
-        this.rtc.eventEmitter.emit(
-            RTCEvents.REMOTE_TRACK_REMOVED, toBeRemoved);
+        this.eventEmitter.emit(RTCEvents.REMOTE_TRACK_REMOVED, toBeRemoved);
     }
 
     return toBeRemoved;
@@ -1388,7 +1385,7 @@ TraceablePeerConnection.prototype.setLocalDescription
 
             if (localUfrag !== this.localUfrag) {
                 this.localUfrag = localUfrag;
-                this.rtc.eventEmitter.emit(
+                this.eventEmitter.emit(
                     RTCEvents.LOCAL_UFRAG_CHANGED, this, localUfrag);
             }
             successCallback();
@@ -1461,7 +1458,7 @@ TraceablePeerConnection.prototype.setRemoteDescription
 
             if (remoteUfrag !== this.remoteUfrag) {
                 this.remoteUfrag = remoteUfrag;
-                this.rtc.eventEmitter.emit(
+                this.eventEmitter.emit(
                     RTCEvents.REMOTE_UFRAG_CHANGED, this, remoteUfrag);
             }
             successCallback();
