@@ -637,7 +637,8 @@ export default class JingleSessionPC extends JingleSession {
                         error,
                         this.mediaConstraints);
                     finishedCallback(error);
-                });
+                },
+                this.mediaConstraints);
         };
 
         this.modificationQueue.push(
